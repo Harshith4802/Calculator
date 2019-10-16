@@ -1,6 +1,9 @@
 #include <avr/io.h> 
 #include <util/delay.h> 
 #include <stdlib.h> 
+#include <string.h>
+
+#define alloc(T,len)(T*)malloc((len)*sizeof(T))
 
 // TYPEDEFS
 typedef uint8_t byte; // changed the name
@@ -101,4 +104,65 @@ int toint(char str[])
     }
  
    return num;
+}
+
+
+
+char* DoubleToStr(double num){
+ int start = num >= 0 ? 0 : 1;
+ if (start == 1) num = -num;
+ int bdp = 0, adp = 0;
+ int n = num;
+ do {
+        bdp++;
+        n /= 10;
+    } while (n != 0);
+    int temp = 10000;
+ n = (int)((num+10e-5 - (int)num)*temp);
+ while (n % temp != 0) { temp /= 10; adp++; }
+ 
+ n = (int)num;
+ char* str = (char*)malloc((bdp+(start==0 ? 1 : 2))*sizeof(char));
+ if (start == 1) str[0] = '-';
+ str[bdp+start] = adp == 0 ? '\0' : '.';
+ 
+ for (int i = 0; i < bdp; i++){
+        str[start + bdp - (i + 1)] = ((n % 10) + '0');
+        n = n / 10;
+    }
+    if (adp == 0) return str;
+    temp = 1;
+    for (int i=0; i<adp; i++) temp *= 10;
+    n = (int)((num+10e-5 - (int)num)*temp);
+   
+    for (int i = 0; i < adp; i++){
+        str[start + (bdp+1) + adp - (i + 1)] = ((n % 10) + '0');
+        n = n / 10;
+    }
+    str[start+bdp+adp+1] = '\0';
+ return str;
+}
+int isDigit(char c){ return '0' <= c && c <= '9'; }
+double readNum(const char* str, int *index){
+ int mul = 1;
+ if (str[*index] == '-'){ (*index)++; mul = -1; }
+ double num = 0;
+ while (str[*index] != 0){
+  if (!isDigit(str[*index])) break;
+  num *= 10.0;
+  num += str[(*index)++] - '0';
+ }
+ if (str[*index] != '.') return mul*num;
+ (*index)++; double m10 = 10;
+ while (str[*index] != 0){
+  if (!isDigit(str[*index])) break;
+  num += (str[(*index)++] - '0')/m10; m10 *= 10;
+ }
+ return mul*num;
+}
+void LCD_Double(double data)
+// displays the Double value of DATA at current LCD cursor position
+{
+ char* st = DoubleToStr(data); // save enough space for result // 
+ LCD_Message(st); // display in on LCD
 }
