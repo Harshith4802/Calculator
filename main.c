@@ -604,7 +604,7 @@ q=q-1;
 }
 a=1;
 }
-_delay_ms(1200);
+_delay_ms(1000);
 key = READ_SWITCHES();
 if(key=='c'){
 LCD_Clear();
