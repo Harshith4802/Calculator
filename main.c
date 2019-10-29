@@ -173,7 +173,7 @@ char key=get_key();
    {
      if (key == '1') //If Button 1 is pressed
     {
-	nc++;
+nc++;
     if (Number==0)
     Number=1;
     else
@@ -227,7 +227,7 @@ char key=get_key();
     else
     Number = (Number*10) + 8; //Pressed twice
     }  
-    
+   
      if (key == '3')
     {nc++;
      if (Number==0)
@@ -254,10 +254,10 @@ char key=get_key();
 }
      if (key == '.')
      {  
-		x++;
-		q=0;
+x++;
+q=0;
 
-	}
+}
 
 if(x!=0)
 {
@@ -327,31 +327,9 @@ if (key == '=')
     }
 }
 
-if(key == 'c'){
-
-if(a==0){
-	if(x==0){ 
-	backspace();
-	Number = (Number-num)/10;
-	nc--;
-}
-	else{
-	backspace();
-	Number = Number-dnum;
-	q=q-1;
-}
-a=1;
-}
-_delay_ms(1500);
-key = READ_SWITCHES();
-if(key=='c'){
-LCD_Clear();
-init_var();	
-}
-}
 
 if(key == 's'){
- 	if(count==0){
+  if(count==0){
 LCD_Clear();
     Num1 = Number;
     LCD_Char('S');
@@ -362,16 +340,16 @@ LCD_Clear();
     LCD_Char(')');
     Number = sin(Num1*M_PI/180);
 }
- 	if(count==1){
-	backspace();
-	if(x==0){
-	for(int j=0;j<nc;j++){
-	backspace();
+  if(count==1){
+backspace();
+if(x==0){
+for(int j=0;j<nc;j++){
+backspace();
 }
 }
-	else{
-	for(int j=0;j<nc+q+1;j++){   //+1 because of the decial point
-	backspace();
+else{
+for(int j=0;j<nc+q+1;j++){   //+1 because of the decial point
+backspace();
 }
 }
 
@@ -388,7 +366,7 @@ LCD_Clear();
 }
 
 if(key == 'o'){
- 	if(count==0){
+  if(count==0){
 LCD_Clear();
     Num1 = Number;  
     LCD_Char('C');
@@ -397,18 +375,18 @@ LCD_Clear();
     LCD_Char('(');
     LCD_Message(DoubleToStr(Number));
     LCD_Char(')');
-    Number = cos(Num1*M_PI/180); 
+    Number = cos(Num1*M_PI/180);
 }
-	if(count==1){
-	backspace();
-		if(x==0){
-	for(int j=0;j<nc;j++){
-	backspace();
+if(count==1){
+backspace();
+if(x==0){
+for(int j=0;j<nc;j++){
+backspace();
 }
 }
-	else{
-	for(int j=0;j<nc+q+1;j++){   //+1 because of the decial point
-	backspace();
+else{
+for(int j=0;j<nc+q+1;j++){   //+1 because of the decial point
+backspace();
 }
 }
     Num2 = Number;  
@@ -424,7 +402,7 @@ LCD_Clear();
 }
 
 if(key == 'r'){
-	if(count==0){
+if(count==0){
 LCD_Clear();
     Num1 = Number;  
     LCD_Char('S');
@@ -434,18 +412,18 @@ LCD_Clear();
     LCD_Char('(');
     LCD_Message(DoubleToStr(Number));
     LCD_Char(')');
-    Number = sqrt(Num1); 
+    Number = sqrt(Num1);
 }
-	if(count==1){
-	backspace();
-	if(x==0){
-	for(int j=0;j<nc;j++){
-	backspace();
+if(count==1){
+backspace();
+if(x==0){
+for(int j=0;j<nc;j++){
+backspace();
 }
 }
-	else{
-	for(int j=0;j<nc+q+1;j++){   //+1 because of the decial point
-	backspace();
+else{
+for(int j=0;j<nc+q+1;j++){   //+1 because of the decial point
+backspace();
 }
 }
     Num2 = Number;  
@@ -456,7 +434,7 @@ LCD_Clear();
     LCD_Char('(');
     LCD_Message(DoubleToStr(Number));
     LCD_Char(')');
-    Number = sqrt(Num2); 
+    Number = sqrt(Num2);
     count=0;
 }
 }
@@ -465,11 +443,11 @@ LCD_Clear();
  
   if (key == '+' || key == '-' || key == '*' || key == '/') //Detecting Buttons on Column 4
   {
-	x=0;
-	i=1;
-	count=1;
-	a=0;
-	nc=0;
+x=0;
+i=1;
+count=1;
+a=0;
+nc=0;
 
     if (key == '+')
     {action = '+';}
@@ -560,33 +538,33 @@ void CalculateResult()
 }
 
 void backspace(){
-	LCD_Cmd(0x10);
-	LCD_Char(' ');
-	LCD_Cmd(0x10);
+LCD_Cmd(0x10);
+LCD_Char(' ');
+LCD_Cmd(0x10);
 }
 
 int no_digits(double no){
-	int co;
-	if(x==0){
-		int numb=no;
-	 while( numb!= 0)
+int co;
+if(x==0){
+int numb=no;
+while( numb!= 0)
      {
         co++;
         numb/= 10;
      }
  }
      else{
-		while(no<0){
-			no=no*10;
-			}
-			
-		int numb=(int)no;	
-		while( numb!= 0)
+while(no<0){
+no=no*10;
+}
+
+int numb=(int)no;
+while( numb!= 0)
       {
         co++;
         numb/= 10;
       }
-	}
+}
 
 return co;
 }
@@ -600,18 +578,41 @@ while(1)
 {
 key=get_key();
 if(key=='1' ||key=='2' ||key=='3' ||key=='4' ||key=='5' ||key=='6' ||key=='7' ||key=='8' ||key=='9' ||key=='0' ){
-	if(x==0){
-	num = atoi(&key);
+if(x==0){
+num = atoi(&key);
 }
-	else{
-	dnum = atoi(&key);
-	for(int j=0;j<=q;j++){
-	dnum = dnum * 0.1;
+else{
+dnum = atoi(&key);
+for(int j=0;j<=q;j++){
+dnum = dnum * 0.1;
 }
 }
 }
 
-if (key != 'b' && key!='c')  
+if(key == 'c'){
+
+if(a==0){
+if(x==0){
+backspace();
+Number = (Number-num)/10;
+nc--;
+}
+else{
+backspace();
+Number = Number-dnum;
+q=q-1;
+}
+a=1;
+}
+_delay_ms(1200);
+key = READ_SWITCHES();
+if(key=='c'){
+LCD_Clear();
+init_var();
+}
+}
+
+if (key != 'b' && key!='c' && key!='n')  
 {
 LCD_Char(key);
 }
